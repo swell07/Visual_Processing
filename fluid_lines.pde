@@ -167,7 +167,7 @@ void oscEvent(OscMessage theOscMessage)
   // get the first value as an integer
   coeffColor1 = theOscMessage.get(0).intValue();//float firstValue
 
-    // get the second value as a float  
+  // get the second value as a float  
   volume = theOscMessage.get(1).intValue();
 
   // get the third value as a string
