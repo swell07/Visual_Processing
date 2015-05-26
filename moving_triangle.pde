@@ -10,7 +10,8 @@ float radius = 30;
 
 float x, y;
 float prevX, prevY;
-color c;
+color c = color(0, 255, 0);
+float angle = random(0, 255);
 
 Boolean fade = true;
 
@@ -57,7 +58,7 @@ void draw()
     y = prevY;
   }
 
-  stroke( 136, 185, 19 ); //line's color
+  stroke( c ); //line's color
   strokeWeight( 1 );
   line( x, y, prevX, prevY );
 
@@ -70,6 +71,9 @@ void draw()
   server.sendScreen();
 }
 
+void oscillate() {
+  angle += 0.15;
+}
 
 void oscEvent(OscMessage theOscMessage) {
 
@@ -79,8 +83,14 @@ void oscEvent(OscMessage theOscMessage) {
     //float thirdValue = theOscMessage.get(1).floatValue();
     return;
   }
+
   if (theOscMessage.checkAddrPattern("/bang")==true) {
     fade = !fade;
+  }
+
+  if (theOscMessage.checkAddrPattern("/color")==true) {
+    angle = random(255);
+    c = color(random(255), 127+127*(sin(angle)), 127+127*(cos(angle)));
   }
   // get the third value as a string
 
